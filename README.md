@@ -16,6 +16,12 @@ OPENAI_API_KEY=YOUR_OPENAI_API_KEY
   - After installing Python, use pip to install the following packages:
     - `pip install openai networkx leidenalg cdlib python-igraph python-dotenv`
 
+```
+conda install pip
+
+pip install -r requirements.txt
+```    
+
 ## Implementation
 
 The following steps are implemented in the `app.py` file, in accordance with the paper's description:

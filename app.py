@@ -10,7 +10,6 @@ load_dotenv()
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-
 # 1. Source Documents → Text Chunks
 def split_documents_into_chunks(documents, chunk_size=600, overlap_size=100):
     chunks = []
@@ -197,7 +196,8 @@ def graph_rag_pipeline(documents, query, chunk_size=600, overlap_size=100):
 
 
 # Example usage
-query = "What are the main themes in these documents?"
-print('Query:', query)
-answer = graph_rag_pipeline(DOCUMENTS, query)
-print('Answer:', answer)
+if __name__ == '__main__':
+    query = "What are the main themes in these documents?"
+    print('Query:', query)
+    answer = graph_rag_pipeline(DOCUMENTS, query)
+    print('Answer:', answer)
