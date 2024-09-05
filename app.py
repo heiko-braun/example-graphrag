@@ -4,11 +4,13 @@ from cdlib import algorithms
 import os
 from dotenv import load_dotenv
 from constants import DOCUMENTS
+import sys
+from core.util import load_object, save_object
 
 load_dotenv()
 
-
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
 
 # 1. Source Documents → Text Chunks
 def split_documents_into_chunks(documents, chunk_size=600, overlap_size=100):
@@ -22,7 +24,13 @@ def split_documents_into_chunks(documents, chunk_size=600, overlap_size=100):
 
 # 2. Text Chunks → Element Instances
 def extract_elements_from_chunks(chunks):
-    elements = []
+        
+    elements = load_object("elements")
+    if(elements is not None):
+        return elements
+    else:
+        elements = []
+
     for index, chunk in enumerate(chunks):
         print(f"Chunk index {index} of {len(chunks)}:")
         response = client.chat.completions.create(
@@ -35,24 +43,33 @@ def extract_elements_from_chunks(chunks):
         print(response.choices[0].message.content)
         entities_and_relations = response.choices[0].message.content
         elements.append(entities_and_relations)
+
+    save_object("elements", elements)    
     return elements
 
 
 # 3. Element Instances → Element Summaries
 def summarize_elements(elements):
-    summaries = []
+    summaries = load_object("summaries")
+    if(summaries is not None):
+        return summaries
+    else:
+        summaries = []
+
     for index, element in enumerate(elements):
         print(f"Element index {index} of {len(elements)}:")
         response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
-                {"role": "system", "content": "Summarize the following entities and relationships in a structured format. Use \"->\" to represent relationships, after the \"Relationships:\" word."},
+                {"role": "system", "content": "Summarize the following entities and relationships in a structured format. List the entities after the \"Entities:\" word, and use \"->\" to represent relationships, after the \"Relationships:\" word."},
                 {"role": "user", "content": element}
             ]
         )
-        print("Element summary:", response.choices[0].message.content)
+        print("Element summary:\n", response.choices[0].message.content, "\n")
         summary = response.choices[0].message.content
         summaries.append(summary)
+
+    save_object("summaries", summaries)    
     return summaries
 
 
@@ -61,6 +78,7 @@ def build_graph_from_summaries(summaries):
     G = nx.Graph()
     for index, summary in enumerate(summaries):
         print(f"Summary index {index} of {len(summaries)}:")
+        
         lines = summary.split("\n")
         entities_section = False
         relationships_section = False
@@ -178,6 +196,8 @@ def graph_rag_pipeline(documents, query, chunk_size=600, overlap_size=100):
 
     # Step 3: Summarize elements
     summaries = summarize_elements(elements)
+    
+    sys.exit() 
 
     # Step 4: Build graph and detect communities
     graph = build_graph_from_summaries(summaries)
