@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository provides an example implementation of the Graph RAG (Graph-based RAG) pipeline described in the [paper](https://arxiv.org/abs/2404.16130) "From Local to Global: A Graph RAG Approach to Query-Focused Summarization" by Darren Edge et al. The implementation is written in Python and demonstrates how to process documents, build a graph, detect communities, and generate a final answer to a query.
+This repository draw largely on https://github.com/stephenc222/example-graphrag, but add's some minor tweaks here and there.
 
 ## Prerequisites
 
@@ -12,11 +12,10 @@ Create a `.env` file in the root of the project with the following variables:
 OPENAI_API_KEY=YOUR_OPENAI_API_KEY
 ```
 
-- Python 3.12 or later
-  - After installing Python, use pip to install the following packages:
-    - `pip install openai networkx leidenalg cdlib python-igraph python-dotenv`
+Setup conda ind install the prerequisites
 
 ```
+conda install jupyter   
 conda install pip
 
 pip install -r requirements.txt
@@ -24,7 +23,7 @@ pip install -r requirements.txt
 
 ## Implementation
 
-The following steps are implemented in the `app.py` file, in accordance with the paper's description:
+The following steps are implemented in the `app.py` file and some functions in `core`, in accordance with the paper's description:
 
 ### 1. Source Documents → Text Chunks
 
