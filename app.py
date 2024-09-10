@@ -98,7 +98,13 @@ def detect_communities(graph):
 
 
 def summarize_communities(communities, graph):
-    community_summaries = []
+
+    community_summaries = load_object("community_summaries")
+    if(community_summaries is not None):
+        return community_summaries
+    else:
+        community_summaries = []
+    
     for index, community in enumerate(communities):
         print(f"Summarize Community index {index} of {len(communities)}:")
         subgraph = graph.subgraph(community)
@@ -120,6 +126,8 @@ def summarize_communities(communities, graph):
         )
         summary = response.choices[0].message.content.strip()
         community_summaries.append(summary)
+    
+    save_object("community_summaries", community_summaries)   
     return community_summaries
 
 
@@ -174,8 +182,7 @@ def graph_rag_pipeline(documents, query, chunk_size=600, overlap_size=100):
     community_summaries = summarize_communities(communities, graph)
 
     # Step 6: Generate answers from community summaries
-    final_answer = generate_answers_from_communities(
-        community_summaries, query)
+    final_answer = generate_answers_from_communities(community_summaries, query)
 
     return final_answer
 
