@@ -79,8 +79,9 @@ What are the main themes in these documents?
 
 Example Graph RAG output:
 
-```
- The main themes in these documents span across several domains, highlighting their interconnections and broader implications:
+---
+
+The main themes in these documents span across several domains, highlighting their interconnections and broader implications:
 
 1. **Renewable Energy**:
     - **Types of Power Generation**: Focus on hydropower, geothermal, and solar energy as key renewable sources.
@@ -111,7 +112,7 @@ Example Graph RAG output:
 
 These themes collectively underscore the importance of sustainability, technological advancement, resilient agricultural practices, effective policies, and international cooperation in addressing the interconnected challenges of energy, climate change, and environmental conservation.
 
-```
+---
 
 _Note that the example uses a multiple albeit small documents for simplicity. In a real-world scenario, you would need to process multiple large documents and answer multiple queries. Expect the script to run for several minutes and cost around $3-5 in OpenAI credits using the GPT-4o model for all of the NLP tasks._
 ````
