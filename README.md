@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository draw largely on https://github.com/stephenc222/example-graphrag, but add's some minor tweaks here and there.
+This repository draws largely on https://github.com/stephenc222/example-graphrag, but add's some minor tweaks here and there.
 
 ## Prerequisites
 
@@ -114,4 +114,4 @@ These themes collectively underscore the importance of sustainability, technolog
 ---
 
 _Note that the example uses a multiple albeit small documents for simplicity. In a real-world scenario, you would need to process multiple large documents and answer multiple queries. Expect the script to run for several minutes and cost around $3-5 in OpenAI credits using the GPT-4o model for all of the NLP tasks._
-````
+
