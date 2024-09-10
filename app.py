@@ -6,6 +6,9 @@ from dotenv import load_dotenv
 from constants import DOCUMENTS
 import sys
 from core.util import load_object, save_object
+from core.prompts import default_entity_prompt
+from core.graph import build_graph_from_summaries
+import re
 
 load_dotenv()
 
@@ -61,7 +64,7 @@ def summarize_elements(elements):
         response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
-                {"role": "system", "content": "Summarize the following entities and relationships in a structured format. List the entities after the \"Entities:\" word, and use \"->\" to represent relationships, after the \"Relationships:\" word."},
+                {"role": "system", "content": default_entity_prompt()},
                 {"role": "user", "content": element}
             ]
         )
@@ -71,43 +74,6 @@ def summarize_elements(elements):
 
     save_object("summaries", summaries)    
     return summaries
-
-
-# 4. Element Summaries → Graph Communities
-def build_graph_from_summaries(summaries):
-    G = nx.Graph()
-    for index, summary in enumerate(summaries):
-        print(f"Summary index {index} of {len(summaries)}:")
-        
-        lines = summary.split("\n")
-        entities_section = False
-        relationships_section = False
-        entities = []
-        for line in lines:
-            if line.startswith("### Entities:") or line.startswith("**Entities:**"):
-                entities_section = True
-                relationships_section = False
-                continue
-            elif line.startswith("### Relationships:") or line.startswith("**Relationships:**"):
-                entities_section = False
-                relationships_section = True
-                continue
-            if entities_section and line.strip():
-                if line[0].isdigit() and line[1] == ".":
-                    line = line.split(".", 1)[1].strip()
-                entity = line.strip()
-                entity = entity.replace("**", "")
-                entities.append(entity)
-                G.add_node(entity)
-            elif relationships_section and line.strip():
-                parts = line.split("->")
-                if len(parts) >= 2:
-                    source = parts[0].strip()
-                    target = parts[-1].strip()
-                    relation = " -> ".join(parts[1:-1]).strip()
-                    G.add_edge(source, target, label=relation)
-    return G
-
 
 # 5. Graph Communities → Community Summaries
 def detect_communities(graph):
@@ -197,14 +163,13 @@ def graph_rag_pipeline(documents, query, chunk_size=600, overlap_size=100):
     # Step 3: Summarize elements
     summaries = summarize_elements(elements)
     
-    sys.exit() 
-
     # Step 4: Build graph and detect communities
     graph = build_graph_from_summaries(summaries)
     print("graph:", graph)
-    communities = detect_communities(graph)
 
+    communities = detect_communities(graph)
     print("communities:", communities[0])
+
     # Step 5: Summarize communities
     community_summaries = summarize_communities(communities, graph)
 
