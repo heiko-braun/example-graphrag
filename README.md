@@ -73,25 +73,44 @@ python app.py
 
 Example query:
 
-```txt
+```
 What are the main themes in these documents?
 ```
 
 Example Graph RAG output:
 
-````txt
-The main themes in the provided documents include:
+```
+ The main themes in these documents span across several domains, highlighting their interconnections and broader implications:
 
-1. **Environmental Policies**: Emphasis on how these policies aim to protect natural ecosystems, promote sustainability, and address environmental challenges.
-2. **Sustainability Practices**: Focus on maintaining ecological balance and health.
-3. **Environmental Challenges**: Addressing issues like pollution, climate change, deforestation, and their broader impacts on wildlife, human health, and the economy.
-4. **Governmental Responsibility**: The role of governments and international organizations in enforcing and implementing environmental policies.
-5. **Stakeholder Cooperation**: The critical role of various stakeholders, including local authorities and communities, in upholding and promoting environmental policies.
-6. **Adaptation and Mitigation Strategies**: Strategies for mitigating the effects of climate change, including renewable energy adoption, efficient water use, and sustainable agriculture.
-7. **Interconnectedness of Environmental Issues**: Exploring how different environmental issues are interconnected, such as deforestation leading to pollution and climate change.
-8. **Impact on Specific Sectors**: Effects on sectors like agriculture (e.g., reduced yields, food security) and their relationships to environmental factors.
+1. **Renewable Energy**:
+    - **Types of Power Generation**: Focus on hydropower, geothermal, and solar energy as key renewable sources.
+    - **Energy Security and Efficiency**: Emphasis on the role of renewable energy in improving energy security and promoting efficiency.
+    - **Technological Advancements**: Improvements in technologies such as solar panels, energy storage solutions, and geothermal efficiency.
+    - **Environmental Impact Management**: Strategies for minimizing the ecological footprint of renewable energy projects.
 
-These themes reflect a comprehensive approach to understanding and addressing complex environmental issues through policy, cooperation, and sustainable practices.
+2. **Climate Change and Agriculture**:
+    - **Impact on Agriculture**: Effects on crop yields, livestock, and the need for climate-resilient practices.
+    - **Adaptation Strategies**: Development of new farming techniques, water management, and sustainable soil management to cope with changing climates.
+    - **Food Security**: Addressing the combined impacts of climate change on agricultural productivity and food availability.
+
+3. **Environmental Policies and International Cooperation**:
+    - **Regulations and Agreements**: Implementation of policies like the Paris Agreement and Convention on Biological Diversity to conserve resources and reduce pollution.
+    - **Sustainable Resource Management**: Focus on conserving water, reducing hazardous chemicals, and mitigating biodiversity loss.
+    - **Global Efforts**: Coordinated international actions to tackle environmental challenges.
+
+4. **Water Management**:
+    - **Supply and Distribution**: Efficient allocation of water resources among various sectors.
+    - **Irrigation and Agriculture**: The role of irrigation in supporting agricultural practices.
+    - **Clean Water Access**: Ensuring safe water for human health, agricultural, and ecosystem sustainability.
+    - **Environmental Concerns**: Addressing water scarcity, pollution, wastewater treatment, and conservation of aquatic ecosystems.
+
+5. **Technological and Economic Impacts**:
+    - **Supply Chain Disruptions**: Economic effects on agriculture and the need for resilient systems.
+    - **Innovation in Agriculture**: Adopting new technologies to enhance productivity.
+    - **Economic Sustainability**: Balancing environmental sustainability with economic growth in the agricultural sector.
+
+These themes collectively underscore the importance of sustainability, technological advancement, resilient agricultural practices, effective policies, and international cooperation in addressing the interconnected challenges of energy, climate change, and environmental conservation.
+
 ```
 
 _Note that the example uses a multiple albeit small documents for simplicity. In a real-world scenario, you would need to process multiple large documents and answer multiple queries. Expect the script to run for several minutes and cost around $3-5 in OpenAI credits using the GPT-4o model for all of the NLP tasks._
