@@ -29,13 +29,13 @@ def build_graph_from_summaries(summaries):
                 entity = tuples[1]                
                 entities.append(entity)
                 G.add_node(entity)
-                print("Added entity", entity)
+                #print("Added entity", entity)
             elif relationships_section:
                 #print("process relationship line:", line)                
                 
                 source = tuples[1]
                 target = tuples[2]
                 relation = tuples[3]
-                print("Added edge", source, target)
+                #print("Added edge", source, target)
                 G.add_edge(source, target, label=relation)
     return G
